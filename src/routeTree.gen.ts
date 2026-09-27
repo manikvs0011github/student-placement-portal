@@ -10,33 +10,161 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as RecruiterRouteImport } from './routes/recruiter'
+import { Route as StudentRouteImport } from './routes/student'
+import { Route as AdminStudentsRouteImport } from './routes/admin.students'
+import { Route as RecruiterApplicationsRouteImport } from './routes/recruiter.applications'
+import { Route as RecruiterPostRouteImport } from './routes/recruiter.post'
+import { Route as StudentApplicationsRouteImport } from './routes/student.applications'
+import { Route as StudentJobsRouteImport } from './routes/student.jobs'
+import { Route as StudentProfileRouteImport } from './routes/student.profile'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecruiterRoute = RecruiterRouteImport.update({
+  id: '/recruiter',
+  path: '/recruiter',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentRoute = StudentRouteImport.update({
+  id: '/student',
+  path: '/student',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminStudentsRoute = AdminStudentsRouteImport.update({
+  id: '/students',
+  path: '/students',
+  getParentRoute: () => AdminRoute,
+} as any)
+const RecruiterApplicationsRoute = RecruiterApplicationsRouteImport.update({
+  id: '/applications',
+  path: '/applications',
+  getParentRoute: () => RecruiterRoute,
+} as any)
+const RecruiterPostRoute = RecruiterPostRouteImport.update({
+  id: '/post',
+  path: '/post',
+  getParentRoute: () => RecruiterRoute,
+} as any)
+const StudentApplicationsRoute = StudentApplicationsRouteImport.update({
+  id: '/applications',
+  path: '/applications',
+  getParentRoute: () => StudentRoute,
+} as any)
+const StudentJobsRoute = StudentJobsRouteImport.update({
+  id: '/jobs',
+  path: '/jobs',
+  getParentRoute: () => StudentRoute,
+} as any)
+const StudentProfileRoute = StudentProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => StudentRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/recruiter': typeof RecruiterRouteWithChildren
+  '/student': typeof StudentRouteWithChildren
+  '/admin/students': typeof AdminStudentsRoute
+  '/recruiter/applications': typeof RecruiterApplicationsRoute
+  '/recruiter/post': typeof RecruiterPostRoute
+  '/student/applications': typeof StudentApplicationsRoute
+  '/student/jobs': typeof StudentJobsRoute
+  '/student/profile': typeof StudentProfileRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/recruiter': typeof RecruiterRouteWithChildren
+  '/student': typeof StudentRouteWithChildren
+  '/admin/students': typeof AdminStudentsRoute
+  '/recruiter/applications': typeof RecruiterApplicationsRoute
+  '/recruiter/post': typeof RecruiterPostRoute
+  '/student/applications': typeof StudentApplicationsRoute
+  '/student/jobs': typeof StudentJobsRoute
+  '/student/profile': typeof StudentProfileRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/recruiter': typeof RecruiterRouteWithChildren
+  '/student': typeof StudentRouteWithChildren
+  '/admin/students': typeof AdminStudentsRoute
+  '/recruiter/applications': typeof RecruiterApplicationsRoute
+  '/recruiter/post': typeof RecruiterPostRoute
+  '/student/applications': typeof StudentApplicationsRoute
+  '/student/jobs': typeof StudentJobsRoute
+  '/student/profile': typeof StudentProfileRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/recruiter'
+    | '/student'
+    | '/admin/students'
+    | '/recruiter/applications'
+    | '/recruiter/post'
+    | '/student/applications'
+    | '/student/jobs'
+    | '/student/profile'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/recruiter'
+    | '/student'
+    | '/admin/students'
+    | '/recruiter/applications'
+    | '/recruiter/post'
+    | '/student/applications'
+    | '/student/jobs'
+    | '/student/profile'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/recruiter'
+    | '/student'
+    | '/admin/students'
+    | '/recruiter/applications'
+    | '/recruiter/post'
+    | '/student/applications'
+    | '/student/jobs'
+    | '/student/profile'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  AuthRoute: typeof AuthRoute
+  RecruiterRoute: typeof RecruiterRouteWithChildren
+  StudentRoute: typeof StudentRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +176,124 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recruiter': {
+      id: '/recruiter'
+      path: '/recruiter'
+      fullPath: '/recruiter'
+      preLoaderRoute: typeof RecruiterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student': {
+      id: '/student'
+      path: '/student'
+      fullPath: '/student'
+      preLoaderRoute: typeof StudentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/students': {
+      id: '/admin/students'
+      path: '/students'
+      fullPath: '/admin/students'
+      preLoaderRoute: typeof AdminStudentsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/recruiter/applications': {
+      id: '/recruiter/applications'
+      path: '/applications'
+      fullPath: '/recruiter/applications'
+      preLoaderRoute: typeof RecruiterApplicationsRouteImport
+      parentRoute: typeof RecruiterRoute
+    }
+    '/recruiter/post': {
+      id: '/recruiter/post'
+      path: '/post'
+      fullPath: '/recruiter/post'
+      preLoaderRoute: typeof RecruiterPostRouteImport
+      parentRoute: typeof RecruiterRoute
+    }
+    '/student/applications': {
+      id: '/student/applications'
+      path: '/applications'
+      fullPath: '/student/applications'
+      preLoaderRoute: typeof StudentApplicationsRouteImport
+      parentRoute: typeof StudentRoute
+    }
+    '/student/jobs': {
+      id: '/student/jobs'
+      path: '/jobs'
+      fullPath: '/student/jobs'
+      preLoaderRoute: typeof StudentJobsRouteImport
+      parentRoute: typeof StudentRoute
+    }
+    '/student/profile': {
+      id: '/student/profile'
+      path: '/profile'
+      fullPath: '/student/profile'
+      preLoaderRoute: typeof StudentProfileRouteImport
+      parentRoute: typeof StudentRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminStudentsRoute: typeof AdminStudentsRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminStudentsRoute: AdminStudentsRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
+interface RecruiterRouteChildren {
+  RecruiterApplicationsRoute: typeof RecruiterApplicationsRoute
+  RecruiterPostRoute: typeof RecruiterPostRoute
+}
+
+const RecruiterRouteChildren: RecruiterRouteChildren = {
+  RecruiterApplicationsRoute: RecruiterApplicationsRoute,
+  RecruiterPostRoute: RecruiterPostRoute,
+}
+
+const RecruiterRouteWithChildren = RecruiterRoute._addFileChildren(
+  RecruiterRouteChildren,
+)
+
+interface StudentRouteChildren {
+  StudentApplicationsRoute: typeof StudentApplicationsRoute
+  StudentJobsRoute: typeof StudentJobsRoute
+  StudentProfileRoute: typeof StudentProfileRoute
+}
+
+const StudentRouteChildren: StudentRouteChildren = {
+  StudentApplicationsRoute: StudentApplicationsRoute,
+  StudentJobsRoute: StudentJobsRoute,
+  StudentProfileRoute: StudentProfileRoute,
+}
+
+const StudentRouteWithChildren =
+  StudentRoute._addFileChildren(StudentRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
+  AuthRoute: AuthRoute,
+  RecruiterRoute: RecruiterRouteWithChildren,
+  StudentRoute: StudentRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
