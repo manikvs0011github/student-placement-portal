@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep role assignments in `user_roles`, with new users defaulting to student; role changes remain administrative because self-assignment would permit privilege escalation.
+- Use shared role-aware portal screens with TanStack route wrappers, while database row policies enforce access independently of navigation guards.
