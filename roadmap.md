@@ -1,0 +1,4 @@
+- [x] Enable Cloud and create role-based placement schema
+- [x] Build authentication and role-aware navigation
+- [x] Build student, recruiter, and admin workflows
+- [x] Verify app and security
