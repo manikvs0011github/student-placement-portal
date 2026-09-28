@@ -14,13 +14,16 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as RecruiterRouteImport } from './routes/recruiter'
 import { Route as StudentRouteImport } from './routes/student'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminApprovalsRouteImport } from './routes/admin.approvals'
 import { Route as AdminStudentsRouteImport } from './routes/admin.students'
 import { Route as DashboardAdminRouteImport } from './routes/dashboard/admin'
 import { Route as DashboardRecruiterRouteImport } from './routes/dashboard/recruiter'
 import { Route as DashboardStudentRouteImport } from './routes/dashboard/student'
+import { Route as RecruiterIndexRouteImport } from './routes/recruiter.index'
 import { Route as RecruiterApplicationsRouteImport } from './routes/recruiter.applications'
 import { Route as RecruiterPostRouteImport } from './routes/recruiter.post'
+import { Route as StudentIndexRouteImport } from './routes/student.index'
 import { Route as StudentApplicationsRouteImport } from './routes/student.applications'
 import { Route as StudentJobsRouteImport } from './routes/student.jobs'
 import { Route as StudentProfileRouteImport } from './routes/student.profile'
@@ -50,6 +53,11 @@ const StudentRoute = StudentRouteImport.update({
   path: '/student',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminApprovalsRoute = AdminApprovalsRouteImport.update({
   id: '/approvals',
   path: '/approvals',
@@ -75,6 +83,11 @@ const DashboardStudentRoute = DashboardStudentRouteImport.update({
   path: '/dashboard/student',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RecruiterIndexRoute = RecruiterIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => RecruiterRoute,
+} as any)
 const RecruiterApplicationsRoute = RecruiterApplicationsRouteImport.update({
   id: '/applications',
   path: '/applications',
@@ -84,6 +97,11 @@ const RecruiterPostRoute = RecruiterPostRouteImport.update({
   id: '/post',
   path: '/post',
   getParentRoute: () => RecruiterRoute,
+} as any)
+const StudentIndexRoute = StudentIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => StudentRoute,
 } as any)
 const StudentApplicationsRoute = StudentApplicationsRouteImport.update({
   id: '/applications',
@@ -117,13 +135,13 @@ export interface FileRoutesByFullPath {
   '/student/applications': typeof StudentApplicationsRoute
   '/student/jobs': typeof StudentJobsRoute
   '/student/profile': typeof StudentProfileRoute
+  '/admin/': typeof AdminIndexRoute
+  '/recruiter/': typeof RecruiterIndexRoute
+  '/student/': typeof StudentIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
-  '/recruiter': typeof RecruiterRouteWithChildren
-  '/student': typeof StudentRouteWithChildren
   '/admin/approvals': typeof AdminApprovalsRoute
   '/admin/students': typeof AdminStudentsRoute
   '/dashboard/admin': typeof DashboardAdminRoute
@@ -134,6 +152,9 @@ export interface FileRoutesByTo {
   '/student/applications': typeof StudentApplicationsRoute
   '/student/jobs': typeof StudentJobsRoute
   '/student/profile': typeof StudentProfileRoute
+  '/admin': typeof AdminIndexRoute
+  '/recruiter': typeof RecruiterIndexRoute
+  '/student': typeof StudentIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -152,6 +173,9 @@ export interface FileRoutesById {
   '/student/applications': typeof StudentApplicationsRoute
   '/student/jobs': typeof StudentJobsRoute
   '/student/profile': typeof StudentProfileRoute
+  '/admin/': typeof AdminIndexRoute
+  '/recruiter/': typeof RecruiterIndexRoute
+  '/student/': typeof StudentIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -171,13 +195,13 @@ export interface FileRouteTypes {
     | '/student/applications'
     | '/student/jobs'
     | '/student/profile'
+    | '/admin/'
+    | '/recruiter/'
+    | '/student/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/admin'
     | '/auth'
-    | '/recruiter'
-    | '/student'
     | '/admin/approvals'
     | '/admin/students'
     | '/dashboard/admin'
@@ -188,6 +212,9 @@ export interface FileRouteTypes {
     | '/student/applications'
     | '/student/jobs'
     | '/student/profile'
+    | '/admin'
+    | '/recruiter'
+    | '/student'
   id:
     | '__root__'
     | '/'
@@ -205,6 +232,9 @@ export interface FileRouteTypes {
     | '/student/applications'
     | '/student/jobs'
     | '/student/profile'
+    | '/admin/'
+    | '/recruiter/'
+    | '/student/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -255,6 +285,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/approvals': {
       id: '/admin/approvals'
       path: '/approvals'
@@ -290,6 +327,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardStudentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/recruiter/': {
+      id: '/recruiter/'
+      path: '/'
+      fullPath: '/recruiter/'
+      preLoaderRoute: typeof RecruiterIndexRouteImport
+      parentRoute: typeof RecruiterRoute
+    }
     '/recruiter/applications': {
       id: '/recruiter/applications'
       path: '/applications'
@@ -303,6 +347,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/recruiter/post'
       preLoaderRoute: typeof RecruiterPostRouteImport
       parentRoute: typeof RecruiterRoute
+    }
+    '/student/': {
+      id: '/student/'
+      path: '/'
+      fullPath: '/student/'
+      preLoaderRoute: typeof StudentIndexRouteImport
+      parentRoute: typeof StudentRoute
     }
     '/student/applications': {
       id: '/student/applications'
@@ -331,11 +382,13 @@ declare module '@tanstack/react-router' {
 interface AdminRouteChildren {
   AdminApprovalsRoute: typeof AdminApprovalsRoute
   AdminStudentsRoute: typeof AdminStudentsRoute
+  AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminApprovalsRoute: AdminApprovalsRoute,
   AdminStudentsRoute: AdminStudentsRoute,
+  AdminIndexRoute: AdminIndexRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
@@ -343,11 +396,13 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 interface RecruiterRouteChildren {
   RecruiterApplicationsRoute: typeof RecruiterApplicationsRoute
   RecruiterPostRoute: typeof RecruiterPostRoute
+  RecruiterIndexRoute: typeof RecruiterIndexRoute
 }
 
 const RecruiterRouteChildren: RecruiterRouteChildren = {
   RecruiterApplicationsRoute: RecruiterApplicationsRoute,
   RecruiterPostRoute: RecruiterPostRoute,
+  RecruiterIndexRoute: RecruiterIndexRoute,
 }
 
 const RecruiterRouteWithChildren = RecruiterRoute._addFileChildren(
@@ -358,12 +413,14 @@ interface StudentRouteChildren {
   StudentApplicationsRoute: typeof StudentApplicationsRoute
   StudentJobsRoute: typeof StudentJobsRoute
   StudentProfileRoute: typeof StudentProfileRoute
+  StudentIndexRoute: typeof StudentIndexRoute
 }
 
 const StudentRouteChildren: StudentRouteChildren = {
   StudentApplicationsRoute: StudentApplicationsRoute,
   StudentJobsRoute: StudentJobsRoute,
   StudentProfileRoute: StudentProfileRoute,
+  StudentIndexRoute: StudentIndexRoute,
 }
 
 const StudentRouteWithChildren =
