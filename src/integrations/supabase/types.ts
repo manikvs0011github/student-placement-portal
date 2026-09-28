@@ -83,7 +83,9 @@ export type Database = {
           created_at: string
           full_name: string | null
           id: string
+          is_approved: boolean
           roll_number: string | null
+          updated_at: string
         }
         Insert: {
           branch?: string | null
@@ -91,7 +93,9 @@ export type Database = {
           created_at?: string
           full_name?: string | null
           id: string
+          is_approved?: boolean
           roll_number?: string | null
+          updated_at?: string
         }
         Update: {
           branch?: string | null
@@ -99,9 +103,43 @@ export type Database = {
           created_at?: string
           full_name?: string | null
           id?: string
+          is_approved?: boolean
           roll_number?: string | null
+          updated_at?: string
         }
         Relationships: []
+      }
+      role_requests: {
+        Row: {
+          created_at: string
+          id: string
+          requested_role: Database["public"]["Enums"]["app_role"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          requested_role: Database["public"]["Enums"]["app_role"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          requested_role?: Database["public"]["Enums"]["app_role"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "role_requests_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
@@ -126,10 +164,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      approve_portal_request: { Args: { _user_id: string }; Returns: undefined }
     }
     Enums: {
-      app_role: "admin" | "recruiter" | "student"
+      app_role: "admin" | "recruiter" | "student" | "tutor" | "super_admin"
       application_status:
         | "applied"
         | "shortlisted"
@@ -263,7 +301,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "recruiter", "student"],
+      app_role: ["admin", "recruiter", "student", "tutor", "super_admin"],
       application_status: [
         "applied",
         "shortlisted",

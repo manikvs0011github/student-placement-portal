@@ -1,0 +1,3 @@
+create or replace function private.protect_profile_approval() returns trigger language plpgsql set search_path = public as $$ begin if new.is_approved is distinct from old.is_approved and current_user <> 'postgres' then raise exception 'Approval status can only be changed by an administrator'; end if; return new; end $$;
+revoke all on function private.protect_profile_approval() from public, anon, authenticated;
+create trigger protect_profile_approval_before_update before update on public.profiles for each row execute function private.protect_profile_approval();

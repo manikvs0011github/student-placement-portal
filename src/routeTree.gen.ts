@@ -14,9 +14,16 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as RecruiterRouteImport } from './routes/recruiter'
 import { Route as StudentRouteImport } from './routes/student'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminApprovalsRouteImport } from './routes/admin.approvals'
 import { Route as AdminStudentsRouteImport } from './routes/admin.students'
+import { Route as DashboardAdminRouteImport } from './routes/dashboard/admin'
+import { Route as DashboardRecruiterRouteImport } from './routes/dashboard/recruiter'
+import { Route as DashboardStudentRouteImport } from './routes/dashboard/student'
+import { Route as RecruiterIndexRouteImport } from './routes/recruiter.index'
 import { Route as RecruiterApplicationsRouteImport } from './routes/recruiter.applications'
 import { Route as RecruiterPostRouteImport } from './routes/recruiter.post'
+import { Route as StudentIndexRouteImport } from './routes/student.index'
 import { Route as StudentApplicationsRouteImport } from './routes/student.applications'
 import { Route as StudentJobsRouteImport } from './routes/student.jobs'
 import { Route as StudentProfileRouteImport } from './routes/student.profile'
@@ -46,10 +53,40 @@ const StudentRoute = StudentRouteImport.update({
   path: '/student',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminApprovalsRoute = AdminApprovalsRouteImport.update({
+  id: '/approvals',
+  path: '/approvals',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminStudentsRoute = AdminStudentsRouteImport.update({
   id: '/students',
   path: '/students',
   getParentRoute: () => AdminRoute,
+} as any)
+const DashboardAdminRoute = DashboardAdminRouteImport.update({
+  id: '/dashboard/admin',
+  path: '/dashboard/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRecruiterRoute = DashboardRecruiterRouteImport.update({
+  id: '/dashboard/recruiter',
+  path: '/dashboard/recruiter',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardStudentRoute = DashboardStudentRouteImport.update({
+  id: '/dashboard/student',
+  path: '/dashboard/student',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecruiterIndexRoute = RecruiterIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => RecruiterRoute,
 } as any)
 const RecruiterApplicationsRoute = RecruiterApplicationsRouteImport.update({
   id: '/applications',
@@ -60,6 +97,11 @@ const RecruiterPostRoute = RecruiterPostRouteImport.update({
   id: '/post',
   path: '/post',
   getParentRoute: () => RecruiterRoute,
+} as any)
+const StudentIndexRoute = StudentIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => StudentRoute,
 } as any)
 const StudentApplicationsRoute = StudentApplicationsRouteImport.update({
   id: '/applications',
@@ -83,25 +125,36 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/recruiter': typeof RecruiterRouteWithChildren
   '/student': typeof StudentRouteWithChildren
+  '/admin/approvals': typeof AdminApprovalsRoute
   '/admin/students': typeof AdminStudentsRoute
+  '/dashboard/admin': typeof DashboardAdminRoute
+  '/dashboard/recruiter': typeof DashboardRecruiterRoute
+  '/dashboard/student': typeof DashboardStudentRoute
   '/recruiter/applications': typeof RecruiterApplicationsRoute
   '/recruiter/post': typeof RecruiterPostRoute
   '/student/applications': typeof StudentApplicationsRoute
   '/student/jobs': typeof StudentJobsRoute
   '/student/profile': typeof StudentProfileRoute
+  '/admin/': typeof AdminIndexRoute
+  '/recruiter/': typeof RecruiterIndexRoute
+  '/student/': typeof StudentIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
-  '/recruiter': typeof RecruiterRouteWithChildren
-  '/student': typeof StudentRouteWithChildren
+  '/admin/approvals': typeof AdminApprovalsRoute
   '/admin/students': typeof AdminStudentsRoute
+  '/dashboard/admin': typeof DashboardAdminRoute
+  '/dashboard/recruiter': typeof DashboardRecruiterRoute
+  '/dashboard/student': typeof DashboardStudentRoute
   '/recruiter/applications': typeof RecruiterApplicationsRoute
   '/recruiter/post': typeof RecruiterPostRoute
   '/student/applications': typeof StudentApplicationsRoute
   '/student/jobs': typeof StudentJobsRoute
   '/student/profile': typeof StudentProfileRoute
+  '/admin': typeof AdminIndexRoute
+  '/recruiter': typeof RecruiterIndexRoute
+  '/student': typeof StudentIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -110,12 +163,19 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/recruiter': typeof RecruiterRouteWithChildren
   '/student': typeof StudentRouteWithChildren
+  '/admin/approvals': typeof AdminApprovalsRoute
   '/admin/students': typeof AdminStudentsRoute
+  '/dashboard/admin': typeof DashboardAdminRoute
+  '/dashboard/recruiter': typeof DashboardRecruiterRoute
+  '/dashboard/student': typeof DashboardStudentRoute
   '/recruiter/applications': typeof RecruiterApplicationsRoute
   '/recruiter/post': typeof RecruiterPostRoute
   '/student/applications': typeof StudentApplicationsRoute
   '/student/jobs': typeof StudentJobsRoute
   '/student/profile': typeof StudentProfileRoute
+  '/admin/': typeof AdminIndexRoute
+  '/recruiter/': typeof RecruiterIndexRoute
+  '/student/': typeof StudentIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -125,25 +185,36 @@ export interface FileRouteTypes {
     | '/auth'
     | '/recruiter'
     | '/student'
+    | '/admin/approvals'
     | '/admin/students'
+    | '/dashboard/admin'
+    | '/dashboard/recruiter'
+    | '/dashboard/student'
     | '/recruiter/applications'
     | '/recruiter/post'
     | '/student/applications'
     | '/student/jobs'
     | '/student/profile'
+    | '/admin/'
+    | '/recruiter/'
+    | '/student/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/admin'
     | '/auth'
-    | '/recruiter'
-    | '/student'
+    | '/admin/approvals'
     | '/admin/students'
+    | '/dashboard/admin'
+    | '/dashboard/recruiter'
+    | '/dashboard/student'
     | '/recruiter/applications'
     | '/recruiter/post'
     | '/student/applications'
     | '/student/jobs'
     | '/student/profile'
+    | '/admin'
+    | '/recruiter'
+    | '/student'
   id:
     | '__root__'
     | '/'
@@ -151,12 +222,19 @@ export interface FileRouteTypes {
     | '/auth'
     | '/recruiter'
     | '/student'
+    | '/admin/approvals'
     | '/admin/students'
+    | '/dashboard/admin'
+    | '/dashboard/recruiter'
+    | '/dashboard/student'
     | '/recruiter/applications'
     | '/recruiter/post'
     | '/student/applications'
     | '/student/jobs'
     | '/student/profile'
+    | '/admin/'
+    | '/recruiter/'
+    | '/student/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -165,6 +243,9 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   RecruiterRoute: typeof RecruiterRouteWithChildren
   StudentRoute: typeof StudentRouteWithChildren
+  DashboardAdminRoute: typeof DashboardAdminRoute
+  DashboardRecruiterRoute: typeof DashboardRecruiterRoute
+  DashboardStudentRoute: typeof DashboardStudentRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -204,12 +285,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/approvals': {
+      id: '/admin/approvals'
+      path: '/approvals'
+      fullPath: '/admin/approvals'
+      preLoaderRoute: typeof AdminApprovalsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/students': {
       id: '/admin/students'
       path: '/students'
       fullPath: '/admin/students'
       preLoaderRoute: typeof AdminStudentsRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/dashboard/admin': {
+      id: '/dashboard/admin'
+      path: '/dashboard/admin'
+      fullPath: '/dashboard/admin'
+      preLoaderRoute: typeof DashboardAdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/recruiter': {
+      id: '/dashboard/recruiter'
+      path: '/dashboard/recruiter'
+      fullPath: '/dashboard/recruiter'
+      preLoaderRoute: typeof DashboardRecruiterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/student': {
+      id: '/dashboard/student'
+      path: '/dashboard/student'
+      fullPath: '/dashboard/student'
+      preLoaderRoute: typeof DashboardStudentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recruiter/': {
+      id: '/recruiter/'
+      path: '/'
+      fullPath: '/recruiter/'
+      preLoaderRoute: typeof RecruiterIndexRouteImport
+      parentRoute: typeof RecruiterRoute
     }
     '/recruiter/applications': {
       id: '/recruiter/applications'
@@ -224,6 +347,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/recruiter/post'
       preLoaderRoute: typeof RecruiterPostRouteImport
       parentRoute: typeof RecruiterRoute
+    }
+    '/student/': {
+      id: '/student/'
+      path: '/'
+      fullPath: '/student/'
+      preLoaderRoute: typeof StudentIndexRouteImport
+      parentRoute: typeof StudentRoute
     }
     '/student/applications': {
       id: '/student/applications'
@@ -250,11 +380,15 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminApprovalsRoute: typeof AdminApprovalsRoute
   AdminStudentsRoute: typeof AdminStudentsRoute
+  AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminApprovalsRoute: AdminApprovalsRoute,
   AdminStudentsRoute: AdminStudentsRoute,
+  AdminIndexRoute: AdminIndexRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
@@ -262,11 +396,13 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 interface RecruiterRouteChildren {
   RecruiterApplicationsRoute: typeof RecruiterApplicationsRoute
   RecruiterPostRoute: typeof RecruiterPostRoute
+  RecruiterIndexRoute: typeof RecruiterIndexRoute
 }
 
 const RecruiterRouteChildren: RecruiterRouteChildren = {
   RecruiterApplicationsRoute: RecruiterApplicationsRoute,
   RecruiterPostRoute: RecruiterPostRoute,
+  RecruiterIndexRoute: RecruiterIndexRoute,
 }
 
 const RecruiterRouteWithChildren = RecruiterRoute._addFileChildren(
@@ -277,12 +413,14 @@ interface StudentRouteChildren {
   StudentApplicationsRoute: typeof StudentApplicationsRoute
   StudentJobsRoute: typeof StudentJobsRoute
   StudentProfileRoute: typeof StudentProfileRoute
+  StudentIndexRoute: typeof StudentIndexRoute
 }
 
 const StudentRouteChildren: StudentRouteChildren = {
   StudentApplicationsRoute: StudentApplicationsRoute,
   StudentJobsRoute: StudentJobsRoute,
   StudentProfileRoute: StudentProfileRoute,
+  StudentIndexRoute: StudentIndexRoute,
 }
 
 const StudentRouteWithChildren =
@@ -294,6 +432,9 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   RecruiterRoute: RecruiterRouteWithChildren,
   StudentRoute: StudentRouteWithChildren,
+  DashboardAdminRoute: DashboardAdminRoute,
+  DashboardRecruiterRoute: DashboardRecruiterRoute,
+  DashboardStudentRoute: DashboardStudentRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
