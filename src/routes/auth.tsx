@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { GraduationCap, ArrowRight, Mail } from 'lucide-react';
 
 const registration = z.object({
-  full_name: z.string().trim().min(1).max(100), email: z.email().max(255), password: z.string().min(6).max(128),
+  full_name: z.string().trim().min(1).max(100), email: z.string().trim().email().max(255), password: z.string().min(6).max(128),
   role: z.enum(['student', 'recruiter', 'tutor']), roll_number: z.string().trim().max(50), branch: z.string().trim().max(100), cgpa: z.string(),
 }).superRefine((value, ctx) => {
   if (value.role !== 'student') return;
@@ -27,14 +27,14 @@ function Auth() {
     try {
       const access = await resolvePortalAccess();
       if (!access.role) return;
-      if (access.pending && access.role !== 'super_admin') { setError(access.user?.user_metadata?.role === 'tutor' || access.role === 'tutor' ? pendingNotice : 'Your access request is pending administrator approval.'); return; }
+      if (access.pending && access.role !== 'super_admin') { setError(access.user?.user_metadata?.['role'] === 'tutor' || access.role === 'tutor' ? pendingNotice : 'Your access request is pending administrator approval.'); return; }
       navigate({ to: rolePath(access.role) as '/student', replace: true });
     } catch { setError('Unable to check account access. Please try again.'); }
   }
   useEffect(() => { goHome(); const { data: { subscription } } = supabase.auth.onAuthStateChange(event => { if (event === 'SIGNED_IN') setTimeout(goHome, 0); }); return () => subscription.unsubscribe(); }, []);
   async function submit(e: React.FormEvent) { e.preventDefault(); setBusy(true); setError('');
     if (mode === 'magic') {
-      const result = z.email().max(255).safeParse(email);
+      const result = z.string().trim().email().max(255).safeParse(email);
       if (!result.success) setError('Enter a valid email address.');
       else { const { error } = await supabase.auth.signInWithOtp({ email: result.data, options: { emailRedirectTo: window.location.origin + '/auth' } }); setError(error?.message || 'Check your email for a sign-in link.'); }
     } else if (mode === 'signup') {
@@ -42,7 +42,7 @@ function Auth() {
       if (!result.success) setError(result.error.issues[0]?.message || 'Check your registration details.');
       else { const { data, error } = await supabase.auth.signUp({ email: result.data.email, password: result.data.password, options: { emailRedirectTo: window.location.origin + '/auth', data: { full_name: result.data.full_name, role: result.data.role, roll_number: result.data.role === 'student' ? result.data.roll_number : null, branch: result.data.role === 'student' ? result.data.branch : null, cgpa: result.data.role === 'student' ? Number(result.data.cgpa) : null } } }); setError(error?.message || (data.session ? 'Account created. Redirecting…' : role === 'student' ? 'Check your email to confirm your account.' : 'Check your email to confirm your account. Your access request then awaits approval.')); if (data.session) goHome(); }
     } else {
-      const result = z.object({ email: z.email().max(255), password: z.string().min(1).max(128) }).safeParse({ email, password });
+      const result = z.object({ email: z.string().trim().email().max(255), password: z.string().min(1).max(128) }).safeParse({ email, password });
       if (!result.success) setError('Enter a valid email address and password.');
       else { const { error } = await supabase.auth.signInWithPassword(result.data); if (error) setError(error.message); else goHome(); }
     }
