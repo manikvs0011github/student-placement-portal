@@ -1,0 +1,3 @@
+import { createFileRoute } from '@tanstack/react-router';
+import { Portal } from '@/components/portal';
+export const Route = createFileRoute('/admin/approvals')({ head: () => ({ meta: [{ title: 'Access approvals | Student Placement Portal' }, { name: 'description', content: 'Review tutor and recruiter access requests.' }, { property: 'og:title', content: 'Access approvals | Student Placement Portal' }, { property: 'og:description', content: 'Review tutor and recruiter access requests.' }, { property: 'og:type', content: 'website' }, { name: 'twitter:card', content: 'summary' }] }), component: () => <Portal role="super_admin" page="approvals" /> });
