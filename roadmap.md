@@ -1,4 +1,4 @@
 - [x] Preserve existing student, recruiter, and admin workflows
 - [x] Add requested roles and secure approval rules
-- [ ] Add role-aware registration, approval and dashboard navigation
-- [ ] Verify preview and security
+- [x] Add role-aware registration, approval and dashboard navigation
+- [x] Verify public signup, restricted access, super-admin pages, nested navigation, build, and database security checks
