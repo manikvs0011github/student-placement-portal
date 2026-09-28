@@ -16,4 +16,4 @@ export async function resolvePortalAccess() {
   const role: PortalRole = designated ? 'super_admin' : roles.data?.some(r => r.role === 'admin') ? 'admin' : roles.data?.some(r => r.role === 'tutor') ? 'tutor' : roles.data?.some(r => r.role === 'recruiter') ? 'recruiter' : 'student';
   return { role, pending, user };
 }
-export function rolePath(role: PortalRole) { return role === 'tutor' ? '/dashboard/admin' : role === 'super_admin' ? '/admin/approvals' : `/${role}`; }
+export function rolePath(role: PortalRole) { return role === 'super_admin' ? '/admin/approvals' : role === 'admin' || role === 'tutor' ? '/dashboard/admin' : `/dashboard/${role}`; }
