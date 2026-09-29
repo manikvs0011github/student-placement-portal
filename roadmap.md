@@ -7,4 +7,4 @@
 - [x] Diagnose super-admin sign-in: designated confirmed account has an email identity and password hash; use password recovery if the password is unknown
 - [x] Provide a password recovery form and callback handling for new links; older backend-issued links may need an updated allowed redirect URL
 - [x] Grant Super Admin access to the existing confirmed manikanta0615@gmail.com account
-- [ ] Send a password setup link so the account owner can choose a private password
+- [x] Send a password setup link so the account owner can choose a private password
