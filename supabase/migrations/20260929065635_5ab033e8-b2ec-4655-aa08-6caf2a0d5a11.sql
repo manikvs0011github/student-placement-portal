@@ -1,0 +1,5 @@
+insert into public.user_roles (user_id, role) select id, 'super_admin'::public.app_role from auth.users where lower(email) = 'manikanta0615@gmail.com' and email_confirmed_at is not null on conflict (user_id, role) do nothing;
+delete from public.user_roles where user_id in (select id from auth.users where lower(email) = 'manikanta0615@gmail.com' and email_confirmed_at is not null) and role = 'student';
+create or replace function private.is_verified_super_admin(_user_id uuid) returns boolean language sql stable security definer set search_path = public as $$
+ select exists (select 1 from auth.users u where u.id = _user_id and u.email_confirmed_at is not null and (lower(u.email) in ('superadmin@college.edu', 'manikvs0011@gmail.com') or (lower(u.email) = 'manikanta0615@gmail.com' and exists (select 1 from public.user_roles r where r.user_id = u.id and r.role = 'super_admin'))))
+$$;
