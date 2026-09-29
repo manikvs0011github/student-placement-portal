@@ -35,6 +35,10 @@ function Auth() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const hash = new URLSearchParams(window.location.hash.slice(1));
+    if (params.get('type') === 'recovery' || hash.get('type') === 'recovery') {
+      window.location.replace('/reset-password' + window.location.search + window.location.hash);
+      return;
+    }
     const confirmation = params.get('flow') === 'confirm' || hash.get('type') === 'signup';
     if (confirmation) {
       // The confirmation callback can carry a session. End it so the user lands on sign-in.
