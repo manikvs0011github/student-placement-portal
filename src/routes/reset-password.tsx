@@ -32,14 +32,13 @@ function ResetPassword() {
     const url = new URL(window.location.href);
     const hash = new URLSearchParams(url.hash.slice(1));
     const failure = url.searchParams.get('error_description') || hash.get('error_description');
-    const recoveryLink = url.searchParams.get('type') === 'recovery' || hash.get('type') === 'recovery';
     if (failure) { setMessage(decodeURIComponent(failure.replace(/\+/g, ' '))); setChecking(false); return; }
     const check = async () => {
       const { data, error } = await supabase.auth.getSession();
       if (!active) return;
-      setReady(recoveryLink && !!data.session && !error);
+      setReady(!!data.session && !error);
       setChecking(false);
-      if (!recoveryLink || !data.session || error) setMessage('This reset link has expired or is invalid. Request a new one below.');
+      if (!data.session || error) setMessage('This reset link has expired or is invalid. Request a new one below.');
     };
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'PASSWORD_RECOVERY' && active) { setReady(!!session); setChecking(false); setMessage(''); }
