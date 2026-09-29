@@ -2,3 +2,7 @@
 - [x] Add requested roles and secure approval rules
 - [x] Add role-aware registration, approval and dashboard navigation
 - [x] Verify public signup, restricted access, super-admin pages, nested navigation, build, and database security checks
+- [ ] Return verified registrations to sign-in
+- [ ] Verify account profile persistence and repair missing records if needed
+- [ ] Diagnose super-admin sign-in against authentication records
+- [ ] Provide a working password recovery form and link handling
