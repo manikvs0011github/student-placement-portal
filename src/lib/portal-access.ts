@@ -12,7 +12,7 @@ export async function resolvePortalAccess() {
   ]);
   if (roles.error || profile.error || requests.error) throw new Error(roles.error?.message || profile.error?.message || requests.error?.message);
   const pending = !!requests.data || (roles.data?.some(r => r.role === 'tutor') && !profile.data?.is_approved);
-  const designated = ['superadmin@college.edu', 'manikvs0011@gmail.com'].includes(user.email?.toLowerCase() || '') && !!user.email_confirmed_at;
+  const designated = !!user.email_confirmed_at && (['superadmin@college.edu', 'manikvs0011@gmail.com'].includes(user.email?.toLowerCase() || '') || (user.email?.toLowerCase() === 'manikanta0615@gmail.com' && !!roles.data?.some(r => r.role === 'super_admin')));
   const role: PortalRole = designated ? 'super_admin' : roles.data?.some(r => r.role === 'admin') ? 'admin' : roles.data?.some(r => r.role === 'tutor') ? 'tutor' : roles.data?.some(r => r.role === 'recruiter') ? 'recruiter' : 'student';
   return { role, pending, user };
 }
