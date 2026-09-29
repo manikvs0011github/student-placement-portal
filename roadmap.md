@@ -2,7 +2,7 @@
 - [x] Add requested roles and secure approval rules
 - [x] Add role-aware registration, approval and dashboard navigation
 - [x] Verify public signup, restricted access, super-admin pages, nested navigation, build, and database security checks
-- [ ] Return verified registrations to sign-in
-- [ ] Verify account profile persistence and repair missing records if needed
-- [ ] Diagnose super-admin sign-in against authentication records
-- [ ] Provide a working password recovery form and link handling
+- [x] Return verified registrations to sign-in
+- [x] Verify account profile persistence: existing account details are stored; no missing profile or role rows in this backend
+- [x] Diagnose super-admin sign-in: designated confirmed account has an email identity and password hash; use password recovery if the password is unknown
+- [x] Provide a password recovery form and callback handling for new links; older backend-issued links may need an updated allowed redirect URL
