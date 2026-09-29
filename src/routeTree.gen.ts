@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as RecruiterRouteImport } from './routes/recruiter'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as StudentRouteImport } from './routes/student'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminApprovalsRouteImport } from './routes/admin.approvals'
@@ -46,6 +47,11 @@ const AuthRoute = AuthRouteImport.update({
 const RecruiterRoute = RecruiterRouteImport.update({
   id: '/recruiter',
   path: '/recruiter',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StudentRoute = StudentRouteImport.update({
@@ -124,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
   '/recruiter': typeof RecruiterRouteWithChildren
+  '/reset-password': typeof ResetPasswordRoute
   '/student': typeof StudentRouteWithChildren
   '/admin/approvals': typeof AdminApprovalsRoute
   '/admin/students': typeof AdminStudentsRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/admin/approvals': typeof AdminApprovalsRoute
   '/admin/students': typeof AdminStudentsRoute
   '/dashboard/admin': typeof DashboardAdminRoute
@@ -162,6 +170,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
   '/recruiter': typeof RecruiterRouteWithChildren
+  '/reset-password': typeof ResetPasswordRoute
   '/student': typeof StudentRouteWithChildren
   '/admin/approvals': typeof AdminApprovalsRoute
   '/admin/students': typeof AdminStudentsRoute
@@ -184,6 +193,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/recruiter'
+    | '/reset-password'
     | '/student'
     | '/admin/approvals'
     | '/admin/students'
@@ -202,6 +212,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/reset-password'
     | '/admin/approvals'
     | '/admin/students'
     | '/dashboard/admin'
@@ -221,6 +232,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/recruiter'
+    | '/reset-password'
     | '/student'
     | '/admin/approvals'
     | '/admin/students'
@@ -242,6 +254,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRoute
   RecruiterRoute: typeof RecruiterRouteWithChildren
+  ResetPasswordRoute: typeof ResetPasswordRoute
   StudentRoute: typeof StudentRouteWithChildren
   DashboardAdminRoute: typeof DashboardAdminRoute
   DashboardRecruiterRoute: typeof DashboardRecruiterRoute
@@ -276,6 +289,13 @@ declare module '@tanstack/react-router' {
       path: '/recruiter'
       fullPath: '/recruiter'
       preLoaderRoute: typeof RecruiterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/student': {
@@ -431,6 +451,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRoute,
   RecruiterRoute: RecruiterRouteWithChildren,
+  ResetPasswordRoute: ResetPasswordRoute,
   StudentRoute: StudentRouteWithChildren,
   DashboardAdminRoute: DashboardAdminRoute,
   DashboardRecruiterRoute: DashboardRecruiterRoute,
