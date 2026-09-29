@@ -13,3 +13,4 @@
 - Use shared role-aware portal screens with TanStack route wrappers, while database row policies enforce access independently of navigation guards.
 - Treat signup role metadata as a request, not an assignment; only a verified designated super administrator can approve it because client metadata is user-controlled.
 - Keep role resolution in a shared browser-safe helper and reuse the existing portal for dashboard aliases because navigation should agree across entry points.
+- Keep signup confirmation callbacks on the public sign-in screen and recovery callbacks on the public reset-password route; callback sessions must be handled before portal redirects so email actions are not mistaken for ordinary sign-in.
