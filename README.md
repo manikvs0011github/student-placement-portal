@@ -1,24 +1,9 @@
 # Student Placement Portal
 
-Here I'm going developing a project. Right now do not take an action to develop anything. Just create project tittle with "Student Placement Portal" and empty shell.
+A TanStack Start placement portal with student, recruiter, tutor, and administrator workspaces. The production target is **Vercel** for the application and an independent **Supabase** project for authentication, Google sign-in, database, and realtime. Lovable remains available for source-code development, not production hosting.
 
-This project was built with [Lovable](https://lovable.dev).
+**Migration and deployment:** [Independent Supabase + Vercel setup guide](docs/VERCEL_SUPABASE_MIGRATION.md). It includes database migrations, Google OAuth, Vercel variables, validation, and options for existing accounts/data. No external project or production deployment is configured automatically.
 
-## Build with Lovable
+## Local development
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/ff0277af-c284-4e37-942d-e1486d958bb0).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+Install dependencies with `bun install` and run `bun run dev`. For an independent Supabase project, set `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_URL`, and `SUPABASE_PUBLISHABLE_KEY` in a local, untracked `.env.local`. Never commit private credentials. See the guide for authentication callback URLs and schema installation before testing sign-in.
