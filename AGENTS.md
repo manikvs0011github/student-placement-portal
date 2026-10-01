@@ -15,3 +15,5 @@
 - Keep role resolution in a shared browser-safe helper and reuse the existing portal for dashboard aliases because navigation should agree across entry points.
 - Keep signup confirmation callbacks on the public sign-in screen and recovery callbacks on the public reset-password route; callback sessions must be handled before portal redirects so email actions are not mistaken for ordinary sign-in.
 - Grant requested Super Admin access only to an already verified account through an administrator-controlled user_roles assignment; require both the verified email and assigned role for the new designated account so a new signup cannot claim its privileges.
+- Deploy the TanStack Start server with Nitro's Vercel preset on Vercel and use Supabase as the only data and authentication service; keep the Lovable preview preset for development.
+- Use Supabase OAuth directly for Google sign-in so production authentication does not depend on Lovable's auth broker.
