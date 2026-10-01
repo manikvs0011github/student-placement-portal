@@ -8,3 +8,7 @@
 - [x] Provide a password recovery form and callback handling for new links; older backend-issued links may need an updated allowed redirect URL
 - [x] Grant Super Admin access to the existing confirmed manikanta0615@gmail.com account
 - [ ] Send a usable public password setup link — blocked until the portal is published or a reachable auth return URL is configured; the local development link was sent but is only usable on localhost
+- [x] Prepare Vercel server output and direct Google authentication with an independent Supabase project without changing the interface.
+- [x] Document external database setup, Google sign-in, Vercel configuration, and migration limitations.
+- [ ] Transfer existing accounts and placement records — blocked until an authorized export of the managed backend is available; see deployment guide.
+- [ ] Configure independent Supabase and Google credentials and deploy on Vercel — blocked on user-owned projects, credentials, and deployment access.
